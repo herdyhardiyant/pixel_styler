@@ -16,7 +16,8 @@ def style_loss(style, target):
     return tf.reduce_mean(tf.square(gram_matrix(style) - gram_matrix(target)))
 
 
-def total_loss(content_outputs, style_outputs, content_targets, style_targets, style_weight, content_weight, num_layers):
+def total_loss(content_outputs, style_outputs, content_targets, style_targets, style_weight, content_weight,
+               num_layers):
     content_loss_value = tf.add_n([content_loss(output, target)
                                    for output, target in zip(content_outputs, content_targets)])
 
