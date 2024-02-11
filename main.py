@@ -14,7 +14,7 @@ num_style_layers = len(style_layers)
 num_content_layers = len(content_layers)
 
 content_path = "./images/cat.jpg"
-style_path = "./images/tnj.jpg"
+style_path = "./images/cafe.jpg"
 
 content_weight = 1e-2
 style_weight = 2e-2
@@ -44,13 +44,13 @@ for epoch in range(epochs):
     for step in range(100):
 
         gradients = trainer.calculate_gradients(
-            model,
-            generated_image,
-            content_targets,
-            style_targets,
-            content_weight,
-            style_weight,
-            num_style_layers)
+                                                model,
+                                                generated_image,
+                                                content_targets,
+                                                style_targets,
+                                                content_weight,
+                                                style_weight,
+                                                num_style_layers)
         optimizer.apply_gradients([(gradients, generated_image)])
         clipped_image = tf.clip_by_value(generated_image, 0.0, 255.0)
         generated_image.assign(clipped_image)
@@ -60,6 +60,5 @@ for epoch in range(epochs):
             print("\r", end='')
 
 clear_output(wait=True)
-generated_image = tf.cast(generated_image, dtype=tf.uint8)
 display_image = visualizer.tensor_to_image(images[-1])
 display_image.show()
